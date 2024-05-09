@@ -1,0 +1,279 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.bodyy {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0%;
+
+}
+
+.container-loginn {
+    border-radius: 10px;
+    position: relative;
+    max-width: 850px;
+    width: 100%;
+    background: #fff;
+    padding: 40px 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    perspective: 2700px;
+}
+
+.container-loginn .cover-loginn {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 50%;
+    z-index: 98;
+    transition: all 1s ease;
+    transform-origin: left;
+    transform-style: preserve-3d;
+}
+
+.container-loginn #flip:checked~.cover-loginn {
+    transform: rotateY(-180deg);
+}
+
+.container-loginn .cover-loginn .front-loginn,
+.container-loginn .cover-loginn .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.cover-loginn .back {
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+.container-loginn .cover-loginn::before,
+.container-loginn .cover-loginn::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #7d2ae8;
+    opacity: 0.5;
+    z-index: 12;
+}
+
+.container-loginn .cover-loginn::after {
+    opacity: 0.3;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+.container-loginn .cover-loginn img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 10;
+}
+
+.container-loginn .cover-loginn .text-loginn {
+    position: absolute;
+    z-index: 130;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-loginn .text-loginn .text-1,
+.cover-loginn .text-loginn .text-2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+
+.cover-loginn .text-loginn .text-2 {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.container-loginn .forms-loginn {
+    height: 100%;
+    width: 100%;
+    background: #fff;
+}
+
+.container-loginn .form-content-loginn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-content-loginn .login-form-loginn,
+.form-content-loginn .signup-form-loginn {
+    width: calc(100% / 2 - 25px);
+}
+
+.forms-loginn .form-content-loginn .title-loginn {
+    position: relative;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+}
+
+.forms-loginn .form-content-loginn .title-loginn:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 25px;
+    background: #7d2ae8;
+}
+
+.forms-loginn .signup-form-loginn .title-loginn:before {
+    width: 20px;
+}
+
+.forms-loginn .form-content-loginn .input-boxes-loginn {
+    margin-top: 30px;
+}
+
+.forms-loginn .form-content-loginn .input-box-loginn {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    margin: 10px 0;
+    position: relative;
+}
+
+.form-content-loginn .input-box-loginn input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.form-content-loginn .input-box-loginn input:focus,
+.form-content-loginn .input-box-loginn input:valid {
+    border-color: #7d2ae8;
+}
+
+.form-content-loginn .input-box-loginn i {
+    position: absolute;
+    color: #7d2ae8;
+    font-size: 17px;
+}
+
+.forms-loginn .form-content-loginn .-loginn {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.forms-loginn .form-content-loginn .text-loginn a {
+    text-decoration: none;
+}
+
+.forms-loginn .form-content-loginn .text-loginn a:hover {
+    text-decoration: underline;
+}
+
+.forms-loginn .form-content-loginn .button {
+    color: #fff;
+    margin-top: 40px;
+}
+
+.forms-loginn .form-content-loginn .button input {
+    color: #fff;
+    background: #7d2ae8;
+    border-radius: 6px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.forms-loginn .form-content-loginn .button input:hover {
+    background: #5b13b9;
+}
+
+.label-loginn {
+    color: #5b13b9;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.label-loginn:hover {
+    text-decoration: underline;
+}
+
+.forms-loginn .form-content-loginn .login-text,
+.forms-loginn .form-content-loginn .sign-up-text {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.container-loginn #flip {
+    display: none;
+}
+
+@media (max-width: 730px) {
+    .container-loginn .cover-loginn {
+        display: none;
+    }
+
+    .form-content-loginn .login-form-loginn,
+    .form-content-loginn .signup-form-loginn {
+        width: 100%;
+    }
+
+    .form-content-loginn .signup-form-loginn {
+        display: none;
+    }
+
+    .container-loginn #flip:checked~.forms-loginn .signup-form-loginn {
+        display: block;
+    }
+
+    .container-loginn #flip:checked~.forms-loginn .login-form-loginn {
+        display: none;
+    }
+}
+
+
+
+/* Styles pour les appareils de petite taille (Mobile) */
+@media only screen and (max-width: 767px) {
+    body {
+        margin-left:0;
+    }
+    
+
+}
+
+/* Styles pour les tablettes */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+/* Styles pour les écrans larges (Desktop) */
+@media only screen and (min-width: 1024px) {
+    
+}
+

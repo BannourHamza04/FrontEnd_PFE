@@ -1,0 +1,57 @@
+/* Start DropDown */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+
+.profile-dropdown-list {
+    position: absolute;
+    top: 40px;
+    width: 220px;
+    right: 0;
+    background-color: #ffaa00;
+    border-radius: 10px;
+    max-height: 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: max-height 0.5s;
+}
+
+.profile-dropdown-list hr {
+    border: 0.5px solid var(--green);
+}
+
+.profile-dropdown-list.active {
+    max-height: 500px;
+}
+
+.profile-dropdown-list-item {
+    padding: 0.5rem 0rem 0.5rem 1rem;
+    transition: background-color 0.2s ease-in, padding-left 0.2s;
+}
+
+.profile-dropdown-list-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.profile-dropdown-list-item a i {
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    background-color: var(--secondary);
+    color: var(--white);
+    line-height: 2.3rem;
+    text-align: center;
+    margin-right: 1rem;
+    border-radius: 50%;
+    transition: margin-right 0.3s;
+}
+
+.profile-dropdown-list-item:hover {
+    padding-left: 1.5rem;
+    background-color: var(--secondary-light);
+}
