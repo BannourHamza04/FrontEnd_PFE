@@ -3,13 +3,14 @@ import './Register.css'
 import UserModel from '../Models/User'
 import { Link } from 'react-router-dom'
 import UserService from '../Services/UserService'
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
 
     const usernameField = useRef()
     const emailField = useRef()
     const passwordField = useRef()
-    
+    const navigate = useNavigate();
 
     const ValidateForm = async () => {
         const nameUser = usernameField.current.value
@@ -37,7 +38,10 @@ export default function Register() {
         try{
             const newUser = new UserModel(nameUser,email,password)
             const response = await UserService.register(newUser)
-            alert(response.data);
+            localStorage.setItem('user_data',JSON.stringify(response.data.sessUser))
+            localStorage.setItem('token', response.data.token)
+            alert(response.data.message);
+            navigate('/AddProfil');
         }catch(err){
             console.log(err)
         }
@@ -45,19 +49,10 @@ export default function Register() {
         }
     }
 
-    const getUserId = async () =>{
-        const userId = UserService.getUserIdSession()
-        alert(userId)
-    }
-
-
-    getUserId()
-
     const handleSubmit = (e) =>{
         
         e.preventDefault()
         ValidateForm()
-
     }
 
     return (

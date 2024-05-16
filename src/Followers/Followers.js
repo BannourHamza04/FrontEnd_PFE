@@ -119,21 +119,6 @@ export default function Followers() {
                             </div>
                             <button class="button button3" >Follow</button>
                         </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/5.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '40px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Oussama_Rj</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
                     </div>
                 </div>
             </div>

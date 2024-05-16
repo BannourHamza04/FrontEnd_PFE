@@ -1,6 +1,6 @@
-
 .input-box {
-    position: absolute;
+    position: fixed;
+    z-index: 1;
     top: 0;
     left: 1%;
     height: 76px;
@@ -74,4 +74,128 @@
         font-size: 14px;
         padding: 8px 18px;
     }
+}
+/* Results Search */
+
+/* Start Results */
+
+.post-Notif-Search {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border: 1px solid #dfdfdf;
+    margin-top: 110px;
+    margin-bottom: 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.info-Notif {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.info-Notif .username-Notif {
+    width: auto;
+    font-weight: 400;
+    color: #000;
+    font-size: 14px;
+    margin-left: 20px;
+    margin-right: 45px;
+}
+
+.info-Notif .username-Notif span {
+    font-weight: bold;
+}
+
+.info-Notif .options-Notif {
+    height: 40px;
+    cursor: pointer;
+}
+
+.info-Notif .user-Notif {
+    display: flex;
+    align-items: center;
+}
+
+.info-Notif .profile-pic-Notif {
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    background: none;
+
+}
+
+.info-Notif .profile-pic-Notif img {
+    border: none;
+    cursor: pointer;
+}
+
+/* End */
+
+/* Styles pour les appareils de petite taille (Mobile) */
+@media only screen and (max-width: 767px) {
+
+    .post-Notif-Search {
+        position: absolute;
+        top: 80px;
+        left: 0%;
+        margin-top: 0;
+    }
+
+    .wrapper-Notif {
+        height: 100vh;
+        margin-bottom: 60px;
+    }
+}
+
+
+/* Styles pour les tablettes */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .post-Notif-Search {
+        width: 50%;
+        margin-top: 130px;
+    }
+}
+
+/* Styles pour les écrans larges (Desktop) */
+@media only screen and (min-width: 1024px) {
+    .wrapper-Notif {
+        margin-top: -17%;
+    }
+}
+
+/* End Notifications */
+
+.button {
+    padding: 3px 17px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 3px;
+
+}
+
+.button3 {
+    background-color: #4d90fe;
+    color: white;
+    border: 2px solid #4d90fe;
+}
+
+.button3:hover {
+    background-color: #1557c2;
+    color: white;
+    border: 2px solid white;
 }

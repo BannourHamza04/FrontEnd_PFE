@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import UserService from '../Services/UserService' 
+import './ProfilFriend.css'
+import { Link, useParams  } from 'react-router-dom'
 import ProfilService from '../Services/ProfilService';
-import './Profile.css'
-import { Link } from 'react-router-dom'
 
-export default function Profile() {
+export default function ProfilFriend() {
 
-    const navigate = useNavigate();
-    const [connectedUser, setConnectedUser] = useState({});
+    const { profilId } = useParams();
     const [profile, setProfile] = useState({});
-    const user = JSON.parse(localStorage.getItem('user_data'))
 
     const fetchProfile = async () => {
         try {
-            const response = await ProfilService.getProfilByAuthorId(user.id)
+            const response = await ProfilService.getProfilById(profilId)
             setProfile(response.data.profil);
+            console.log(profile)
         } catch (error) {
             console.error('Error fetching profile:', error);
         }
     };
 
     useEffect(() => {
-        UserService.verifierConnection(navigate, setConnectedUser);
         fetchProfile()
     }, []);
 
@@ -31,7 +27,7 @@ export default function Profile() {
             <div className="container-Profi">
                 <div className="user-Prof">
                     <span className="gg--chevron-left" id="backButton"></span>
-                    <h1> {profile.nameInProfile}</h1>
+                    <h2> {profile.nameInProfile}</h2>
                 </div>
                 <div className="profile">
                     <div className="profile-image">
@@ -42,21 +38,18 @@ export default function Profile() {
                     <div className="profile-user-settings">
                         <h1 className="profile-user-name">{profile.nameInProfile}</h1>
                         <button className="primary profile-edit-btn" >Follow</button>
-
                         {/* <!-- <button className="btn profile-settings-btn" aria-label="profile settings">
                         <i className="fas fa-cog"
                             aria-hidden="true"></i>
                         </button> --> */}
-
                     </div>
                     <div className="profile-bio">
                         <p><span className="profile-real-name">Jane Doe</span> {profile.bio}📷✈️🏕️</p>
                     </div>
                 </div>
-                {/* <!-- End of profile section --> */}
             </div>
 
-            <main>
+            {/* <main>
                 <div className="desktop-only">
                 </div>
                 <div className="mobile-tabs mobile-only">
@@ -124,7 +117,7 @@ export default function Profile() {
                         <span className="media-icon"></span>
                     </div>
                 </div>
-            </main>
+            </main> */}
         </div>
     )
 }

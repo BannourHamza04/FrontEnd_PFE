@@ -22,7 +22,8 @@ input {
 	padding: .75rem;
 }
 
-.card-image-EdP {
+.card-image-EdP img{
+	position: absolute;
 	width: 150px;
 	height: 150px;
 	display: flex;
@@ -31,10 +32,11 @@ input {
 	border-radius: 50%;
 	overflow: hidden;
 	margin: 0 auto 2rem;
-	background-image: url(../../public/imgs/images/pdp.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+
 
 #file-input {
     width: 100%;

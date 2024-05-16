@@ -3,9 +3,11 @@ import { FiChevronLeft } from 'react-icons/fi';
 import  './EditProfile.css';
 import axios from 'axios'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddProfil() {
 
+    const navigate = useNavigate();
     const [connectedUser, setConnectedUser] = useState({});
 
     const pdpField = useRef()
@@ -32,7 +34,6 @@ export default function AddProfil() {
 
         if(isFormValid){
         try{
-            console.log(pdpField)
             const response = await axios.post('http://127.0.0.1:4000/Profil/Ajouter', formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
@@ -41,6 +42,7 @@ export default function AddProfil() {
             console.log(response)
             if(response.status === 200){
                 alert(response.data)
+                navigate('/SessionTest');
             }
             else{
                 alert(response.data)
@@ -66,7 +68,7 @@ export default function AddProfil() {
             <div className="info-EdP">
                 <div className="user-EdP">
                 <FiChevronLeft  id="backButton" className='gg--chevron-left'></FiChevronLeft>
-                    <h1>Edit Profile </h1>
+                    <h1>Create your Profile </h1>
                 </div>
             </div>
             <div className="card-image-EdP" id="profile-image-container">

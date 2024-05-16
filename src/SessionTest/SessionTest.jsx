@@ -30,7 +30,7 @@ export default function SessionTest() {
         <>
             <div>Hello {profile.nameInProfile} </div>
             {profile.pdp && (
-                        <img src={`http://localhost:4000/${profile.pdp}`} alt="profile" />
+                        <img src={profile.pdp} alt="profile" />
                     )}
         </>
         

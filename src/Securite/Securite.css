@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
-
 img {
 	max-width: 100%;
 	display: block;
@@ -25,17 +24,13 @@ input {
 
 .card-image-EdP {
 	width: 150px;
-	/* Définir une largeur fixe pour l'image */
 	height: 150px;
-	/* Définir une hauteur fixe pour l'image */
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
 	overflow: hidden;
 	margin: 0 auto 2rem;
-	/* Ajuster la marge basse pour créer un espace entre l'image et le formulaire */
-	background-image: url(../../public/imgs/images/pdp.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -94,7 +89,6 @@ body {
     height: 30px;
     position: relative;
     margin: 5px;
-    cursor: pointer;
     font-size: 20px;
 }
 
@@ -234,8 +228,7 @@ body {
 @media only screen and (min-width: 1024px) {
 	.container-Sec{
 		max-width: 100%;
-		width: 70%;
-		/* margin-left: -5%; */
+		width: 90%;
 	}
 }
 

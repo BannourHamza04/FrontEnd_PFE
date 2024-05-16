@@ -16,6 +16,7 @@ import Accueill from './Accueill/Accueill'
 import Profile from './Profile/Profile'
 import SessionTest from './SessionTest/SessionTest'
 import AddProfil from './EditProfile/AddProfil'
+import ProfilFriend from './Search/ProfilFriend'
 
 
 export default function App() {
@@ -28,10 +29,10 @@ export default function App() {
       <Route path='/Register' element={<Register />}></Route>
       <Route path='/Search' element={<Search />} />
       <Route path='/SessionTest' element={<SessionTest />} />
-      {/* <Route path='/EditProfile' element={<EditProfile />} /> */}
         <Route path='/' element={<Principal />}>
           <Route index element={<Poste />} />
           <Route path='Profile' element={<Profile />} />
+          <Route path="ProfilFriend/:profilId" element={<ProfilFriend />} />
           <Route path='AddProfil' element={<AddProfil />} />
           <Route path='EditProfile' element={<EditProfile />} />
           <Route path='Securite' element={<Securite />} />
