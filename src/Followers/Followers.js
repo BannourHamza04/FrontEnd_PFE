@@ -1,7 +1,42 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
 import './Followers.css'
+import ProfilService from '../Services/ProfilService';
+import Follower from './Follower'
 
 export default function Followers() {
+
+    const [followers, setFollowers] = useState([]);
+    const user = JSON.parse(localStorage.getItem('user_data'))
+
+    // Récupération des Followings
+    const getFollowers = async () => {
+        try {
+            const response = await ProfilService.getFollowersByAuthor(user.id);
+            if (response.status === 200) {
+                console.log(response.data.followers)
+                setFollowers(response.data.followers);
+            } else {
+                console.log(response.data);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    // Affichage des résultats avec filtrage
+    const displayFollowers = () => {
+            if (followers.length === 0) {
+                return <p>Aucun résultat trouvé</p>;
+            } else {
+                return followers.map((user, key) => {
+                    return <Follower user={user} key={key} />;
+                });
+            }
+    };
+
+    useEffect(() => {
+        getFollowers();
+    }, []);
 
     return (
         <section className="main-Notif" style={{ margintop: '-60px' }}>
@@ -11,114 +46,10 @@ export default function Followers() {
                         <div className="info-Notif">
                             <div className="user-Notif">
                                 <span className="gg--chevron-left" id="backButton"></span>
-                                <h1>Followers</h1>
+                                <h1>Followings</h1>
                             </div>
                         </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/2.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '40px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Hamza_Bn</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/5.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '50px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Oussama_Rj</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/2.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '40px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Hamza_Bn</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/5.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '40px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Oussama_Rj</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/2.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '40px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Hamza_Bn</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/5.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '40px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Oussama_Rj</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
-                        <div className="info-Notif">
-                            <div className="user-Notif">
-                                <div className="profile-pic-Notif"><img src="/imgs/images/imgs/2.jpg" alt="" style={{
-                                    height: '40px',
-                                    width: '40px',
-                                    padding: '0',
-                                    background: 'none',
-                                    borderRadius: '50%'
-                                }} /></div>
-
-                                <p className="username-Notif"><span>Hamza Bannour</span> <br />
-                                    @Hamza_Bn</p>
-                            </div>
-                            <button class="button button3" >Follow</button>
-                        </div>
+                        {displayFollowers()}
                     </div>
                 </div>
             </div>

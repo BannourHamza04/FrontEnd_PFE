@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import ProfilService from '../Services/ProfilService';
 
-export default function ResultsSerach({ user }) {
-
+export default function Follower({user}) {
     const [abonne, setAbonne] = useState();
     const author = JSON.parse(localStorage.getItem('user_data'))
 

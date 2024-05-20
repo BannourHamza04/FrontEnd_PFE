@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ProfilFriend.css'
-import { Link, useParams  } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ProfilService from '../Services/ProfilService';
 
 export default function ProfilFriend() {
@@ -18,6 +18,76 @@ export default function ProfilFriend() {
         }
     };
 
+    // ------------------------------------------------------------------------------
+
+    const [abonne, setAbonne] = useState();
+    const author = JSON.parse(localStorage.getItem('user_data'))
+
+    // Verify Following
+    const verifierFollow = async () => {
+        try {
+            const followingId = profilId
+            const authorId = author.id
+            const response = await ProfilService.ifIsFollowing(authorId, followingId)
+            if (response.data == true) {
+                setAbonne(true)
+            }
+            else {
+                setAbonne(false)
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    }
+
+    const fonctionPourBoutonRouge = async () => {
+        try {
+            const followingId = profilId
+            const authorId = author.id
+            console.log(followingId)
+            const response = await ProfilService.unFollow(authorId, followingId)
+            if (response.status === 200) {
+                alert(response.data)
+            }
+            else {
+                console.log(response.data)
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    };
+
+    // Follow
+    const fonctionPourBoutonBleu = async () => {
+        try {
+            const followingId = profilId
+            const authorId = author.id
+            console.log(followingId)
+            const response = await ProfilService.follow(authorId, followingId)
+            if (response.status == 200) {
+                alert(response.data)
+            }
+            else {
+                console.log(response.data)
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    };
+
+    const toggleAbonnement = async () => {
+        setAbonne(!abonne);
+        if (abonne) {
+            await fonctionPourBoutonRouge();
+        } else {
+            await fonctionPourBoutonBleu();
+        }
+    };
+
+    useEffect(() => {
+        verifierFollow()
+    }, [abonne]);
+
     useEffect(() => {
         fetchProfile()
     }, []);
@@ -31,17 +101,14 @@ export default function ProfilFriend() {
                 </div>
                 <div className="profile">
                     <div className="profile-image">
-                    {profile.pdp && (
-                        <img src={`http://localhost:4000/${profile.pdp}`} alt="profile" style={{ width: '140px' }} />
-                    )}
+                        {profile.pdp && (
+                            <img src={`http://localhost:4000/${profile.pdp}`} alt="profile" style={{ width: '140px' }} />
+                        )}
                     </div>
                     <div className="profile-user-settings">
                         <h1 className="profile-user-name">{profile.nameInProfile}</h1>
-                        <button className="primary profile-edit-btn" >Follow</button>
-                        {/* <!-- <button className="btn profile-settings-btn" aria-label="profile settings">
-                        <i className="fas fa-cog"
-                            aria-hidden="true"></i>
-                        </button> --> */}
+                        <button className="primary profile-edit-btn" style={{ backgroundColor: abonne ? 'red' : 'blue' }} onClick={toggleAbonnement}>
+                            {abonne ? 'Unfollow' : 'Follow'}</button>
                     </div>
                     <div className="profile-bio">
                         <p><span className="profile-real-name">Jane Doe</span> {profile.bio}📷✈️🏕️</p>

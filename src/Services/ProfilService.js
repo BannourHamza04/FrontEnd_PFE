@@ -45,4 +45,12 @@ ProfilService.unFollow = async (authorId,followingId) => {
     return await axios.get(`http://127.0.0.1:4000/Profil/${authorId}/deleteFollowing/${followingId}`)
 }
 
+ProfilService.getFollowingsByAuthor = async (authorId) => {
+    return await axios.get(`http://127.0.0.1:4000/Profil/${authorId}/getFollowingsByAuthor`)
+}
+
+ProfilService.getFollowersByAuthor = async (authorId) => {
+    return await axios.get(`http://127.0.0.1:4000/Profil/${authorId}/getFollowersByAuthor`)
+}
+
 export default ProfilService;
