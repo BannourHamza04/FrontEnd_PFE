@@ -2,8 +2,13 @@ import { useEffect, useState } from 'react';
 import './Followings.css'
 import ProfilService from '../Services/ProfilService';
 import Following from './Following'
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+
 export default function Followings() {
 
+    const token = Cookies.get('access_token');
+    const navigate = useNavigate();
     const [followings, setFollowings] = useState([]);
     const user = JSON.parse(localStorage.getItem('user_data'))
 
@@ -34,6 +39,9 @@ export default function Followings() {
     };
 
     useEffect(() => {
+        if(!token){
+            navigate('/Login')
+        }
         getFollowings();
     }, []);
 

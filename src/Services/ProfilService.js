@@ -9,8 +9,8 @@ ProfilService.updateProfil = async (data,idProfile) => {
     return await axios.post('http://127.0.0.1:4000/Profil/${idProfile}/update', data)
 }
 
-ProfilService.getProfilByAuthorId = async (idAuthorProfil) => {
-    return await axios.get(`http://127.0.0.1:4000/Profil/${idAuthorProfil}/getProfilByAuthorId`)
+ProfilService.getProfilByAuthorId = async (idAuthorProfil,headers) => {
+    return await axios.get(`http://127.0.0.1:4000/Profil/${idAuthorProfil}/getProfilByAuthorId`,{headers })
 }
 
 ProfilService.getProfilById = async (idProfil) => {

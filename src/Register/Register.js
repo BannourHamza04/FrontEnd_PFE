@@ -4,9 +4,11 @@ import UserModel from '../Models/User'
 import { Link } from 'react-router-dom'
 import UserService from '../Services/UserService'
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export default function Register() {
 
+    const [_,setCookies] = useCookies(["access_token"])
     const usernameField = useRef()
     const emailField = useRef()
     const passwordField = useRef()
@@ -40,6 +42,7 @@ export default function Register() {
             const response = await UserService.register(newUser)
             localStorage.setItem('user_data',JSON.stringify(response.data.sessUser))
             localStorage.setItem('token', response.data.token)
+            setCookies("access_token", response.data.token)
             alert(response.data.message);
             navigate('/AddProfil');
         }catch(err){

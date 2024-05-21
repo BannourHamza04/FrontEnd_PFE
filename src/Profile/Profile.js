@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserService from '../Services/UserService' 
 import ProfilService from '../Services/ProfilService';
 import './Profile.css'
+import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom'
 
 export default function Profile() {
 
+    const token = Cookies.get('access_token');
     const navigate = useNavigate();
-    const [connectedUser, setConnectedUser] = useState({});
     const [profile, setProfile] = useState({});
     const user = JSON.parse(localStorage.getItem('user_data'))
 
     const fetchProfile = async () => {
         try {
-            const response = await ProfilService.getProfilByAuthorId(user.id)
+            if (!token) {
+                console.error('Token not found in cookies');
+                return;
+            }
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+            const response = await ProfilService.getProfilByAuthorId(user.id,headers)
             setProfile(response.data.profil);
         } catch (error) {
             console.error('Error fetching profile:', error);
@@ -22,7 +29,9 @@ export default function Profile() {
     };
 
     useEffect(() => {
-        UserService.verifierConnection(navigate, setConnectedUser);
+        if(!token){
+            navigate('/Login')
+        }
         fetchProfile()
     }, []);
 

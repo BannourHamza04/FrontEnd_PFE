@@ -3,12 +3,14 @@ import './Loginn.css'
 import { Link } from 'react-router-dom'
 import UserService from '../Services/UserService'
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export default function Loginn() {
 
     const emailField = useRef()
     const passwordField = useRef()
     const navigate = useNavigate();
+    const [_,setCookies] = useCookies(["access_token"])
 
     const ValidateForm = async () => {
         const email = emailField.current.value
@@ -43,6 +45,7 @@ export default function Loginn() {
                 console.log(response.data)
                 localStorage.setItem('user_data',JSON.stringify(response.data.sessUser))
                 localStorage.setItem('token', response.data.token)
+                setCookies("access_token", response.data.token)
                 console.log(response)
                 navigate('/SessionTest');
                 }

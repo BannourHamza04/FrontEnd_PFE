@@ -4,12 +4,14 @@ import  './EditProfile.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import ProfilService from '../Services/ProfilService';
+import Cookies from 'js-cookie';
 
 export default function EditProfile() {
 
+    const token = Cookies.get('access_token');
     const navigate = useNavigate();
     const [connectedUser, setConnectedUser] = useState({});
-
+    
     const pdpField = useRef()
     const nameInProfilField = useRef()
     const ageField = useRef()
@@ -23,8 +25,15 @@ export default function EditProfile() {
     // Recuperer Anciens Données de Profile
     const RecuperateDataProfile = async () => {
         try{
+            if (!token) {
+                console.error('Token not found in cookies');
+                return;
+            }
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
             const userId = user.id;
-            const response = await ProfilService.getProfilByAuthorId(userId);
+            const response = await ProfilService.getProfilByAuthorId(userId,headers);
             setProfileInfo(response.data.profil)
             console.log(response.data.profil)
         }catch(error){
@@ -88,7 +97,9 @@ export default function EditProfile() {
     }
 
     useEffect(() => {
-        setConnectedUser(JSON.parse(localStorage.getItem('user_data')));
+        if(!token){
+            navigate('/Login')
+        }
         RecuperateDataProfile();
     }, []);
     

@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './ProfilFriend.css'
 import { Link, useParams } from 'react-router-dom'
 import ProfilService from '../Services/ProfilService';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfilFriend() {
 
+    const navigate = useNavigate();
+    const token = Cookies.get('access_token');
     const { profilId } = useParams();
     const [profile, setProfile] = useState({});
 
@@ -89,6 +93,9 @@ export default function ProfilFriend() {
     }, [abonne]);
 
     useEffect(() => {
+        if(!token){
+            navigate('/Login')
+        }
         fetchProfile()
     }, []);
 

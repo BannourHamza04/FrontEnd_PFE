@@ -4,9 +4,11 @@ import  './EditProfile.css';
 import axios from 'axios'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function AddProfil() {
 
+    const token = Cookies.get('access_token');
     const navigate = useNavigate();
     const [connectedUser, setConnectedUser] = useState({});
 
@@ -42,7 +44,7 @@ export default function AddProfil() {
             console.log(response)
             if(response.status === 200){
                 alert(response.data)
-                navigate('/SessionTest');
+                navigate('/Profile');
             }
             else{
                 alert(response.data)
@@ -59,10 +61,12 @@ export default function AddProfil() {
     }
 
     useEffect(() => {
+        if(!token){
+            navigate('/Login')
+        }
         setConnectedUser(JSON.parse(localStorage.getItem('user_data')))
     }, []);
     
-
     return (
         <section className='container-EdP'>
             <div className="info-EdP">
