@@ -17,6 +17,8 @@ import Profile from './Profile/Profile'
 import SessionTest from './SessionTest/SessionTest'
 import AddProfil from './EditProfile/AddProfil'
 import ProfilFriend from './Search/ProfilFriend'
+import ResetPassword from './Login2/ResetPassword'
+import EditPassword from './Login2/EditPassword'
 
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
       <Routes>
       <Route path='/Accueil' element={<Accueill />}></Route>
       <Route path='/Login' element={<Loginn />}></Route>
+      <Route path='/EditPassword' element={<EditPassword />}></Route>
+      <Route path='/ResetPassword' element={<ResetPassword />}></Route>
       <Route path='/Register' element={<Register />}></Route>
       <Route path='/Search' element={<Search />} />
       <Route path='/SessionTest' element={<SessionTest />} />

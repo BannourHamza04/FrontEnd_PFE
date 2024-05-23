@@ -5,6 +5,8 @@ import axios from 'axios'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddProfil() {
 
@@ -43,11 +45,11 @@ export default function AddProfil() {
             });
             console.log(response)
             if(response.status === 200){
-                alert(response.data)
+                toast.success(response.data)
                 navigate('/Profile');
             }
             else{
-                alert(response.data)
+                toast.error(response.data)
             }
         }catch(err){
             console.log(err)
@@ -68,6 +70,10 @@ export default function AddProfil() {
     }, []);
     
     return (
+        <>
+            <div>
+                <ToastContainer position='top-center' />
+            </div>
         <section className='container-EdP'>
             <div className="info-EdP">
                 <div className="user-EdP">
@@ -116,6 +122,6 @@ export default function AddProfil() {
             </form>
             
         </section>
-
+        </>
     )
 }

@@ -36,6 +36,8 @@ export default function Profile() {
     }, []);
 
     return (
+        <>
+        
         <div>
             <div className="container-Profi">
                 <div className="user-Prof">
@@ -51,20 +53,12 @@ export default function Profile() {
                     <div className="profile-user-settings">
                         <h1 className="profile-user-name">{profile.nameInProfile}</h1>
                         <button className="primary profile-edit-btn" >Follow</button>
-
-                        {/* <!-- <button className="btn profile-settings-btn" aria-label="profile settings">
-                        <i className="fas fa-cog"
-                            aria-hidden="true"></i>
-                        </button> --> */}
-
                     </div>
                     <div className="profile-bio">
                         <p><span className="profile-real-name">Jane Doe</span> {profile.bio}📷✈️🏕️</p>
                     </div>
                 </div>
-                {/* <!-- End of profile section --> */}
             </div>
-
             <main>
                 <div className="desktop-only">
                 </div>
@@ -135,5 +129,6 @@ export default function Profile() {
                 </div>
             </main>
         </div>
+        </>
     )
 }

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import UserService from '../Services/UserService'
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
 
@@ -27,12 +29,12 @@ export default function Register() {
         }
 
         if(password.length < 8){
-            alert('Password invalid, The Password must be at least 8 characters long ! ')
+            toast.error('Password invalid, The Password must be at least 8 characters long ! ')
             isFormValid = false
         }
 
         if(!validateEmail(email)){
-            alert('Invalid email format ! ')
+            toast.error('Invalid email format ! ')
             isFormValid = false
         }
         
@@ -40,11 +42,16 @@ export default function Register() {
         try{
             const newUser = new UserModel(nameUser,email,password)
             const response = await UserService.register(newUser)
-            localStorage.setItem('user_data',JSON.stringify(response.data.sessUser))
-            localStorage.setItem('token', response.data.token)
-            setCookies("access_token", response.data.token)
-            alert(response.data.message);
-            navigate('/AddProfil');
+            if (response.status === 200) {
+                localStorage.setItem('user_data',JSON.stringify(response.data.sessUser))
+                localStorage.setItem('token', response.data.token)
+                setCookies("access_token", response.data.token)
+                toast.success(response.data.message);
+                navigate('/AddProfil');
+            }
+            if(response.status === 201){
+                toast.error(response.data);
+            }
         }catch(err){
             console.log(err)
         }
@@ -53,83 +60,48 @@ export default function Register() {
     }
 
     const handleSubmit = (e) =>{
-        
         e.preventDefault()
         ValidateForm()
     }
 
     return (
-        <div className='bodyy'>
-        <div className="container-loginn">
-            <input type="checkbox" id="flip" />
-                <div className="cover-loginn">
-                    <div className="front-loginn">
-                        <img src="/imgs/images/Login_Gym2.jpg" alt="" />
-                            <div className="text-loginn">
-                                <span className="text-1">Every new friend is a <br /> new adventure</span>
-                                <span className="text-2">Let's get connected</span>
+        <>
+            <div>
+                <ToastContainer position='top-center' />
+            </div>
+            <div className='landing-Acc'>
+                <div className="container-log">
+                    <div className="landing-log">
+                        <div className="form-container-log">
+                            <div className="form-log">
+                                <h2 style={{ color: 'orange' }}>Register</h2>
+                                <form onSubmit={handleSubmit}>
+                                    <div className="input-group-log">
+                                        <label htmlFor="Username">Username :</label>
+                                        <input type="text" id="Username" placeholder="Your Username" required ref={usernameField} />
+                                    </div>
+                                    <div className="input-group-log">
+                                        <label htmlFor="email">Email :</label>
+                                        <input type="text" id="email" placeholder="Your Email" required ref={emailField} />
+                                    </div>
+                                    <div className="input-group-log">
+                                        <label htmlFor="password">Password :</label>
+                                        <input type="password" id="password" placeholder="Your password" required ref={passwordField} />
+                                    </div>
+                                    <div className="text-log"><Link to="/Login">Do you have an account?</Link></div>
+                                    <input className="input-submit-log" type="submit" value="Register" />
+                                    <input className="input-google-log" type="submit" value="Connect with Google" />
+                                </form>
                             </div>
-                    </div>
-                    <div className="back">
-                        {/* <!--<img className="backImg" src="images/backImg.jpg" alt="">--> */}
-                            <div className="text-loginn">
-                                <span className="text-1">Complete miles of journey <br /> with one step</span>
-                                <span className="text-2">Let's get started</span>
-                            </div>
-                    </div>
-                </div>
-                <div className="forms-loginn">
-                    <div className="form-content-loginn">
-                        <div className="login-form-loginn">
-                            <div className="title-loginn">Signup</div>
-                            <form onSubmit={handleSubmit}>
-                                <div className="input-boxes-loginn">
-                                <div className="input-box-loginn">
-                                        <i className="fas fa-envelope"></i>
-                                        <input type="text" placeholder="Enter your Username" ref={usernameField} required />
-                                    </div>
-                                    <div className="input-box-loginn">
-                                        <i className="fas fa-envelope"></i>
-                                        <input type="text" placeholder="Enter your email" ref={emailField} required />
-                                    </div>
-                                    <div className="input-box-loginn">
-                                        <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Enter your password" ref={passwordField} required />
-                                    </div>
-                                    <div className="text-loginn"><Link to="/Register">Forgot password?</Link></div>
-                                    <div className="button input-box-loginn">
-                                        <input type="submit" value="Sumbit" />
-                                    </div>
-                                    <div className="text sign-up-text">Do you have an account? <Link to='/Login'><label htmlFor="" className='label-loginn'>Login now</label></Link></div>
-                                </div>
-                            </form>
                         </div>
-                        <div className="signup-form-loginn">
-                            <div className="title-loginn">Signup</div>
-                            <form action="#">
-                                <div className="input-boxes-loginn">
-                                    <div className="input-box-loginn">
-                                        <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Enter your name" required />
-                                    </div>
-                                    <div className="input-box-loginn">
-                                        <i className="fas fa-envelope"></i>
-                                        <input type="text" placeholder="Enter your email" required />
-                                    </div>
-                                    <div className="input-box-loginn">
-                                        <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Enter your password" required />
-                                    </div>
-                                    <div className="button input-box-loginn">
-                                        <input type="submit" value="Sumbit" />
-                                    </div>
-                                    <div className="text-loginn sign-up-text-loginn">Already have an account? <label htmlFor="flip" className='label-loginn'>Login now</label></div>
-                                </div>
-                            </form>
+                        <div className="cover-log">
+                            <div className="text-overlay-log">
+                                <h2>Welcome to our visitors in our App!</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>
+            </div>
+        </>
     )
 }

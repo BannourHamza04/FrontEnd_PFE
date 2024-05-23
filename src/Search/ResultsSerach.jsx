@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import ProfilService from '../Services/ProfilService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ResultsSerach({ user }) {
 
@@ -31,7 +33,7 @@ export default function ResultsSerach({ user }) {
             console.log(followingId)
             const response = await ProfilService.unFollow(authorId,followingId)
             if(response.status == 200){
-                alert(response.data)
+                toast.success(response.data)
             }
             else{
                 console.log(response.data)
@@ -49,7 +51,7 @@ export default function ResultsSerach({ user }) {
             console.log(followingId)
             const response = await ProfilService.follow(authorId,followingId)
             if(response.status == 200){
-                alert(response.data)
+                toast.success(response.data)
             }
             else{
                 console.log(response.data)
@@ -73,6 +75,10 @@ export default function ResultsSerach({ user }) {
     }, [abonne]);
 
     return (
+        <>
+            <div>
+                <ToastContainer position='top-center' />
+            </div>
         <div className="info-Notif">
             <div className="user-Notif">
                 <Link to={`/ProfilFriend/${user._id}`}>
@@ -91,5 +97,6 @@ export default function ResultsSerach({ user }) {
             <button className="button button3" style={{ backgroundColor: abonne ? 'red' : 'blue' }} onClick={toggleAbonnement}>
         {abonne ? 'Unfollow' : 'Follow'}</button>
         </div>
+        </>
     )
 }
