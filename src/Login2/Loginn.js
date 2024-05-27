@@ -85,16 +85,16 @@ export default function Loginn() {
                                 <h2 style={{ color: 'orange' }}>Login</h2>
                                 <form onSubmit={handleSubmit}>
                                     <div className="input-group-log">
-                                        <label htmlFor="email">Email :</label>
-                                        <input type="text" id="email" placeholder="Your Email" required ref={emailField} />
+                                        <label className='class-label' htmlFor="email">Email :</label>
+                                        <input className='class-input' type="text" id="email" placeholder="Your Email" required ref={emailField} />
                                     </div>
                                     <div className="input-group-log">
-                                        <label htmlFor="email">Password :</label>
-                                        <input type="password" id="password" placeholder="Your password" required ref={passwordField} />
+                                        <label className='class-label' htmlFor="email">Password :</label>
+                                        <input className='class-input' type="password" id="password" placeholder="Your password" required ref={passwordField} />
                                     </div>
                                     <div className="text-log"><Link to="/Register">Do you not have an account?</Link></div>
-                                    <input className="input-submit-log" type="submit" value="Login" />
-                                    <input className="input-google-log" type="submit" value="Connect with Google" />
+                                    <input className='class-input input-submit-log'  type="submit" value="Login" />
+                                    <input className='class-input input-google-log 'type="submit" value="Connect with Google" />
                                 </form>
                             </div>
                         </div>

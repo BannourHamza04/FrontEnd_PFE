@@ -77,20 +77,20 @@ export default function Register() {
                                 <h2 style={{ color: 'orange' }}>Register</h2>
                                 <form onSubmit={handleSubmit}>
                                     <div className="input-group-log">
-                                        <label htmlFor="Username">Username :</label>
-                                        <input type="text" id="Username" placeholder="Your Username" required ref={usernameField} />
+                                        <label className='class-label' htmlFor="Username">Username :</label>
+                                        <input className='class-input' type="text" id="Username" placeholder="Your Username" required ref={usernameField} />
                                     </div>
                                     <div className="input-group-log">
-                                        <label htmlFor="email">Email :</label>
-                                        <input type="text" id="email" placeholder="Your Email" required ref={emailField} />
+                                        <label className='class-label' htmlFor="email">Email :</label>
+                                        <input className='class-input' type="text" id="email" placeholder="Your Email" required ref={emailField} />
                                     </div>
                                     <div className="input-group-log">
-                                        <label htmlFor="password">Password :</label>
-                                        <input type="password" id="password" placeholder="Your password" required ref={passwordField} />
+                                        <label className='class-label' htmlFor="password">Password :</label>
+                                        <input className='class-input' type="password" id="password" placeholder="Your password" required ref={passwordField} />
                                     </div>
                                     <div className="text-log"><Link to="/Login">Do you have an account?</Link></div>
-                                    <input className="input-submit-log" type="submit" value="Register" />
-                                    <input className="input-google-log" type="submit" value="Connect with Google" />
+                                    <input className="input-submit-log class-input" type="submit" value="Register" />
+                                    <input className="input-google-log class-input" type="submit" value="Connect with Google" />
                                 </form>
                             </div>
                         </div>
