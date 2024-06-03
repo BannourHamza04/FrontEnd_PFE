@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../NavBar/NavBar'
 import ButtomBar from '../ButtomBar/ButtomBar'
-import SideBar from '../SideBar/SideBar'
+// import SideBar from '../SideBar/SideBar'
 import { Outlet } from 'react-router-dom'
 
 export default function Principal() {
@@ -9,7 +9,7 @@ export default function Principal() {
     <div>
         <NavBar />
         <ButtomBar />
-        <SideBar />
+        {/* <SideBar /> */}
         <Outlet />
     </div>
     

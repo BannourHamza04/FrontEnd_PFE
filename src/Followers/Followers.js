@@ -17,7 +17,6 @@ export default function Followers() {
         try {
             const response = await ProfilService.getFollowersByAuthor(user.id);
             if (response.status === 200) {
-                console.log(response.data.followers)
                 setFollowers(response.data.followers);
             } else {
                 console.log(response.data);

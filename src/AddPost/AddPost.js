@@ -1,44 +1,93 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react';
 import './AddPost.css'
+import axios from 'axios'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function AddPost() {
+
+    const token = Cookies.get('access_token');
+    const navigate = useNavigate();
+    const [connectedUser, setConnectedUser] = useState({});
+
+    const imgPostField = useRef()
+    const contentPostField = useRef()
+
+    const ValidateForm = async () => {
+
+        // Récupérer les données de l'image de profil
+        const formData = new FormData();
+        formData.append('image', imgPostField.current.files[0]);
+        formData.append('content', contentPostField.current.value.trim());
+        let isFormValid = true
+
+        if (!contentPostField.current.value.trim()) {
+            isFormValid = false;
+            toast.error('The content of the post cannot be empty or contain only spaces.');
+        }
+
+        if (isFormValid) {
+            try {
+                const idAuthor = connectedUser.id;
+                const response = await axios.post(`http://127.0.0.1:4000/Post/${idAuthor}/Ajouter`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log(response)
+                if (response.status === 200) {
+                    toast.success(response.data)
+                    // navigate('/');
+                }
+                else {
+                    toast.error(response.data)
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        ValidateForm()
+    }
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/Login')
+        }
+        setConnectedUser(JSON.parse(localStorage.getItem('user_data')))
+    }, []);
+
+
     return (
-        <div className="container-AddP">
-            <div className="wrapper-AddP">
-                <section className="post-AddP">
-                    
-                    <header><span className="gg--chevron-left" id="backButton"></span>Create Post</header>
-                    <form action="#">
-                        <div className="content-AddP">
-                            <img src="imgs/images/pdp.jpg" alt="logo" />
-                                <div className="details-AddP">
-                                    <p>Hamza BANNOUR</p>
-                                    {/* <div className="privacy-AddP">
-                                        <i className="fas fa-user-friends"></i>
-                                        <span>Friends</span>
-                                        <i className="fas fa-caret-down"></i>
-                                    </div> */}
-                                </div>
-                        </div>
-                        <textarea placeholder="What's on your mind, CodingNepal?" spellcheck="false" required></textarea>
-                        <div className="theme-emoji-AddP">
-                            <img src="/imgs/images/fb-icons/theme.svg" alt="theme" />
-                                <img src="/imgs/images/fb-icons/smile.svg" alt="smile" />
-                                </div>
-                                <div className="options-AddP">
-                                    <p>Add to Your Post</p>
-                                    <ul className="list-AddP">
-                                        <li><img src="/imgs/images/fb-icons/gallery.svg" alt="gallery" /></li>
-                                        <li><img src="/imgs/images/fb-icons/tag.svg" alt="gallery" /></li>
-                                        <li><img src="/imgs/images/fb-icons/emoji.svg" alt="gallery" /></li>
-                                        <li><img src="/imgs/images/fb-icons/mic.svg" alt="gallery" /></li>
-                                        <li><img src="/imgs/images/fb-icons/more.svg" alt="gallery" /></li>
-                                    </ul>
-                                </div>
-                                <button>Post</button>
-                            </form>
-                        </section>
-                        
-                    </div>
+        <>
+            <div>
+                <ToastContainer position='top-center' />
             </div>
-            )
+            <div className="container-AddP">
+                <div className="form-AddP">
+                    <div className="title-AddP">
+                        <span className="gg--chevron-left" id="backButton"></span>
+                        <h2 style={{ color: 'orange' }}>Create Post</h2>
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-group-AddP">
+                            <label htmlFor="content" className="label-content-AddP">Post content :</label>
+                            <input className="content-post-AddP" type="text" placeholder="Add your post content" required ref={contentPostField} />
+                        </div>
+                        <div className="input-group-AddP">
+                            <label htmlFor="upload-img" style={{ cursor: 'pointer', color: 'orange', margin: 5 + 'px', fontSize: 16 + 'px' }}> Click to Choose your image post.</label>
+                            <input type="file" accept="image/*,video/*" id="upload-img" ref={imgPostField} required />
+                        </div>
+                        <input className="input-submit-AddP" type="submit" value="Create" />
+                    </form>
+                </div>
+            </div>
+        </>
+    )
 }

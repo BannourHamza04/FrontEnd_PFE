@@ -92,7 +92,6 @@ export default function ResultsSerach({ user }) {
                 </Link>
                 <p className="username-Notif"><span>{user.nameInProfile}</span> <br />
                     {user.city}</p>
-
             </div>
             <button className="button button3" style={{ backgroundColor: abonne ? 'red' : 'blue' }} onClick={toggleAbonnement}>
         {abonne ? 'Unfollow' : 'Follow'}</button>

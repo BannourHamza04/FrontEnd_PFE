@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Principal from './Principal/Principal'
-import Poste from './Poste/Poste'
+import Postes from './Poste/Postes'
 import Loginn from './Login2/Loginn'
 import Register from './Register/Register'
 import EditProfile from './EditProfile/EditProfile'
@@ -34,7 +34,7 @@ export default function App() {
       <Route path='/Search' element={<Search />} />
       <Route path='/SessionTest' element={<SessionTest />} />
         <Route path='/' element={<Principal />}>
-          <Route index element={<Poste />} />
+          <Route index element={<Postes />} />
           <Route path='Profile' element={<Profile />} />
           <Route path="ProfilFriend/:profilId" element={<ProfilFriend />} />
           <Route path='AddProfil' element={<AddProfil />} />
