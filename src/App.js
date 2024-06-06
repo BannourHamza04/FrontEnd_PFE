@@ -19,6 +19,7 @@ import AddProfil from './EditProfile/AddProfil'
 import ProfilFriend from './Search/ProfilFriend'
 import ResetPassword from './Login2/ResetPassword'
 import EditPassword from './Login2/EditPassword'
+import Commentaires from './Poste/Commentaires'
 
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
       <Route path='/SessionTest' element={<SessionTest />} />
         <Route path='/' element={<Principal />}>
           <Route index element={<Postes />} />
+          <Route path="Commentaires/:postId" element={<Commentaires />} />
           <Route path='Profile' element={<Profile />} />
           <Route path="ProfilFriend/:profilId" element={<ProfilFriend />} />
           <Route path='AddProfil' element={<AddProfil />} />

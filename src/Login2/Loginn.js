@@ -48,15 +48,15 @@ export default function Loginn() {
                     localStorage.setItem('token', response.data.token)
                     setCookies("access_token", response.data.token)
                     toast.success(response.data);
-                    navigate('/SessionTest');
+                    navigate('/');
                 }
-                if(response.status === 202){
+                if (response.status === 202) {
                     toast.error(response.data);
                 }
-                if(response.status === 400) {
+                if (response.status === 400) {
                     toast.error(response.data);
                 }
-                if(response.status === 201){
+                if (response.status === 201) {
                     toast.error(response.data);
                 }
 
@@ -92,10 +92,12 @@ export default function Loginn() {
                                         <label className='class-label' htmlFor="email">Password :</label>
                                         <input className='class-input' type="password" id="password" placeholder="Your password" required ref={passwordField} />
                                     </div>
-                                    <div className="text-log"><Link to="/Register">Do you not have an account?</Link></div>
-                                    <input className='class-input input-submit-log'  type="submit" value="Login" />
-                                    <input className='class-input input-google-log 'type="submit" value="Connect with Google" />
+                                    <div className="text-log"><Link to="/ResetPassword">Do you forget your Password?</Link></div>
+                                    <input className='class-input input-submit-log' type="submit" value="Login" />
                                 </form>
+                                <Link to="/Register">
+                                    <input className='class-input input-google-log ' type="submit" value="Register" />
+                                </Link>
                             </div>
                         </div>
                         <div className="cover-log">

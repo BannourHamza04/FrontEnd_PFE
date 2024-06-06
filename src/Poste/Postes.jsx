@@ -3,14 +3,12 @@ import PostService from '../Services/PostService';
 import Poste from './Poste'
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import ProfilService from '../Services/ProfilService';
 
 export default function Postes() {
 
     const token = Cookies.get('access_token');
     const author = JSON.parse(localStorage.getItem('user_data'))
     const [postes, setPostes] = useState([]);
-    const [profilAuthor, setProfilAuthor] = useState([]);
     const navigate = useNavigate();
 
     // Récupération des Postes
@@ -19,9 +17,7 @@ export default function Postes() {
             const authorId = author.id
             const response = await PostService.getPostes(authorId);
             if (response.status === 200) {
-                setProfilAuthor(response.data.authorProfil)
                 setPostes(response.data.postList);
-                console.log(postes)
             } else {
                 console.log(response.data);
             }
@@ -32,7 +28,6 @@ export default function Postes() {
 
     // Affichage des Postes
     const displayPostes = () => {
-        console.log(postes)
         if (postes.length === 0) {
             return <p>Aucun Poste trouvé</p>;
         } else {
@@ -47,7 +42,7 @@ export default function Postes() {
             navigate('/Login')
         }
         getPostes();
-    }, []);
+    }, [postes]);
 
     return (
         <>{displayPostes()}</>

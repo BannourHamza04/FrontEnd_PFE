@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import './Poste.css'
-import { useState } from 'react';
-export default function Poste({post}) {
+import { Link } from 'react-router-dom'
+import PostService from '../Services/PostService';
+
+export default function Poste({ post }) {
 
     const [showMenu, setShowMenu] = useState(false);
     const toggleMenu = () => {
         setShowMenu(!showMenu);
     };
-    
+
     const renderMedia = () => {
         if (!post.image) {
             return null;
@@ -31,6 +33,73 @@ export default function Poste({post}) {
         }
     };
 
+    // ---------------------------------------Like --------------------------------------------
+
+    const [like, setLike] = useState('');
+    const liker = JSON.parse(localStorage.getItem('user_data'))
+
+    // Verify Like
+    const verifierLike = async () => {
+        try {
+            const postId = post._id
+            const likerId = liker.id
+            const response = await PostService.ifIsLikePost(postId, likerId)
+            if (response.data == true) {
+                setLike(true)
+            }
+            else {
+                setLike(false)
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    }
+
+    // Like
+    const Like = async () => {
+        try {
+            const postId = post._id
+            const likerId = liker.id
+            console.log(postId)
+            const response = await PostService.likeAndDisLike(postId, likerId)
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    };
+
+    const toggleLike = async () => {
+        setLike(!like);
+        await Like()
+    };
+
+    useEffect(() => {
+        verifierLike()
+    }, [like]);
+
+    // ------------------------------------------- isAuthorPost -----------------------------------------
+    const author = JSON.parse(localStorage.getItem('user_data'))
+    const [isAuthorPost, setIsAuthorPost] = useState('')
+
+    // Verify Like
+    const ifIsAuthor = async () => {
+        try {
+            const postId = post._id
+            const authorId = author.id
+            const response = await PostService.isAuthorPost(postId, authorId)
+            if (response.status == 200) {
+                setIsAuthorPost(response.data)
+            }
+            else {
+                console.log(response.data)
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    }
+
+    useEffect(() => {
+        ifIsAuthor();
+    }, []);
 
     return (
         // <!-- Start Post 1 -->
@@ -40,36 +109,56 @@ export default function Poste({post}) {
                     <div className="post">
                         <div className="info">
                             <div className="user">
-                                <div className="profile-pic"><img src={post.authorPost.pdp} alt="" style={{ height: '40px', width: '40px', padding: '0', background: 'none', borderRadius: '50%' }} /></div>
+                                <Link to={`/ProfilFriend/${post.authorPost._id}`}>
+                                    <div className="profile-pic"><img src={post.authorPost.pdp} alt="" style={{ height: '40px', width: '40px', padding: '0', background: 'none', borderRadius: '50%' }} /></div>
+                                </Link>
                                 <p className="username">{post.authorPost.nameInProfile}</p>
                             </div>
-                            <img src="/imgs/images/img/option.PNG" className="options" alt="" onClick={toggleMenu} />
-                            {showMenu && (
-                                <div className="dropdown-menu">
-                                    <ul>
-                                        <li>Delete</li>
-                                        <li>Update</li>
-                                    </ul>
-                                </div>
+
+                            {isAuthorPost && (
+                                <>
+                                    <img src="/imgs/images/img/option.PNG" className="options" alt="" onClick={toggleMenu} />
+                                    {showMenu && (
+                                        <div className="dropdown-menu">
+                                            <ul>
+                                                <li>Delete</li>
+                                                <li>Update</li>
+                                            </ul>
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </div>
                         <div className="post-content">
                             <div className="reaction-wrapper">
-                            <p className="description"><span>username </span>{post.content}</p>
+                                <p className="description"><span>username </span>{post.content}</p>
                             </div>
                         </div>
                         {renderMedia()}
 
-                        <input type="checkbox" name="" id="like1" className="btn-P like" />
-                        <input type="checkbox" name="" id="comment1" className="btn-P commentt" />
+                        <input
+                            type="checkbox"
+                            id={`like-${post._id}`}
+                            className="btn-P like"
+                            checked={like}
+                            onChange={toggleLike}
+                            style={{ display: 'none' }}
+                        />
+
+                        <input type="checkbox" name="" className="btn-P commentt" />
                         <div className="post-content">
                             <div className="reaction-wrapper">
-                                <label htmlFor="like1" className="like-btn"></label>
-                                <label htmlFor="comment1" className="comment-btnn"></label>
-                                {/* <img src="/imgs/images/img/send.PNG" className="icon" alt="" />
-                                <img src="/imgs/images/img/save.PNG" className="icon save" alt="" /> */}
+
+                                <label
+                                    htmlFor={`like-${post._id}`}
+                                    className="like-btn"
+                                    style={{ color: like ? 'red' : 'inherit' }}
+                                ></label>
+                                <Link to={`/Commentaires/${post._id}`}>
+                                    <label htmlFor="comment1" className="comment-btnn"></label>
+                                </Link>
                             </div>
-                            <p className="likes">1,012 likes</p>
+                            <p className="likes">{post.nombreLikes} likes</p>
                             <label htmlFor="comment1" className="comment-btn2"></label>
                             <p className="post-time">2 minutes ago</p>
                         </div>
@@ -78,67 +167,6 @@ export default function Poste({post}) {
                             <input type="text" className="comment-box" placeholder="Add a comment" />
                             <button className="comment-btn">post</button>
                         </div>
-
-                        {/* <!-- Display Comments --> */}
-                        <div className="post-comment">
-                            <div className="head">
-                                <div className="name">Comments</div>
-                                <label htmlFor="comment1" className="comment-btn3">
-                                    <i className="fa-solid fa-xmark"></i>
-                                </label>
-                            </div>
-                            <div className="comments">
-                                <div className="comment">
-                                    <img src="../imgs/images/pdp.jpg" alt="" />
-                                    <span>
-                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut
-                                        accusamus velit, ipsa provident.
-                                        <div className="desc">2m ago <span>Reply</span></div>
-                                    </span>
-                                    {/* <!-- <i className="fa-regular fa-heart"></i> --> */}
-                                </div>
-                                <div className="comment">
-                                    <img src="../imgs/images/pdp.jpg" alt="" />
-                                    <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                        Explicabo nesciunt consectetur quos laudantium.
-                                        <div className="desc">1h ago <span>Reply</span></div>
-                                    </span>
-                                    {/* <!-- <i className="fa-regular fa-heart"></i> --> */}
-                                </div>
-                                <div className="comment">
-                                    <img src="../imgs/images/pdp.jpg" alt="" />
-                                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis,
-                                        iusto.
-                                        <div className="desc">1d ago <span>Reply</span></div>
-                                    </span>
-                                    {/* <!-- <i className="fa-regular fa-heart"></i> --> */}
-                                </div>
-
-                                <div className="comment">
-                                    <img src="../imgs/images/pdp.jpg" alt="" />
-                                    <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                        Explicabo nesciunt consectetur.
-                                        <div className="desc">1h ago <span>Reply</span></div>
-                                    </span>
-                                    {/* <!-- <i className="fa-regular fa-heart"></i> --> */}
-                                </div>
-                                <div className="comment">
-                                    <img src="../imgs/images/pdp.jpg" alt="" />
-                                    <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-
-                                        <div className="desc">1h ago <span>Reply</span></div>
-                                    </span>
-                                    {/* <!-- <i className="fa-regular fa-heart"></i> --> */}
-                                </div>
-
-                            </div>
-
-                            <div className="new-comment">
-                                <img src="../imgs/images/pdp.jpg" alt="" />
-                                <input type="text" placeholder="Add a comment..." />
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>

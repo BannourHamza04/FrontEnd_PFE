@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register() {
 
-    const [_,setCookies] = useCookies(["access_token"])
+    const [_, setCookies] = useCookies(["access_token"])
     const usernameField = useRef()
     const emailField = useRef()
     const passwordField = useRef()
@@ -28,38 +28,38 @@ export default function Register() {
             return regex.test(email);
         }
 
-        if(password.length < 8){
+        if (password.length < 8) {
             toast.error('Password invalid, The Password must be at least 8 characters long ! ')
             isFormValid = false
         }
 
-        if(!validateEmail(email)){
+        if (!validateEmail(email)) {
             toast.error('Invalid email format ! ')
             isFormValid = false
         }
-        
-        if(isFormValid){
-        try{
-            const newUser = new UserModel(nameUser,email,password)
-            const response = await UserService.register(newUser)
-            if (response.status === 200) {
-                localStorage.setItem('user_data',JSON.stringify(response.data.sessUser))
-                localStorage.setItem('token', response.data.token)
-                setCookies("access_token", response.data.token)
-                toast.success(response.data.message);
-                navigate('/AddProfil');
+
+        if (isFormValid) {
+            try {
+                const newUser = new UserModel(nameUser, email, password)
+                const response = await UserService.register(newUser)
+                if (response.status === 200) {
+                    localStorage.setItem('user_data', JSON.stringify(response.data.sessUser))
+                    localStorage.setItem('token', response.data.token)
+                    setCookies("access_token", response.data.token)
+                    toast.success(response.data.message);
+                    navigate('/AddProfil');
+                }
+                if (response.status === 201) {
+                    toast.error(response.data);
+                }
+            } catch (err) {
+                console.log(err)
             }
-            if(response.status === 201){
-                toast.error(response.data);
-            }
-        }catch(err){
-            console.log(err)
-        }
 
         }
     }
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault()
         ValidateForm()
     }
@@ -88,10 +88,11 @@ export default function Register() {
                                         <label className='class-label' htmlFor="password">Password :</label>
                                         <input className='class-input' type="password" id="password" placeholder="Your password" required ref={passwordField} />
                                     </div>
-                                    <div className="text-log"><Link to="/Login">Do you have an account?</Link></div>
-                                    <input className="input-submit-log class-input" type="submit" value="Register" />
-                                    <input className="input-google-log class-input" type="submit" value="Connect with Google" />
+                                    <input className='class-input input-submit-log' type="submit" value="Register" />
                                 </form>
+                                <Link to="/Login">
+                                    <input className='class-input input-google-log ' type="submit" value="Login" />
+                                </Link>
                             </div>
                         </div>
                         <div className="cover-log">

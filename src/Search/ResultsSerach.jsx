@@ -51,7 +51,10 @@ export default function ResultsSerach({ user }) {
             console.log(followingId)
             const response = await ProfilService.follow(authorId,followingId)
             if(response.status == 200){
-                toast.success(response.data)
+                try{
+                    toast.success(response.data)
+                }catch(err){}
+                
             }
             else{
                 console.log(response.data)

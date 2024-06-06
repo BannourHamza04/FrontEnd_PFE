@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ProfilFriend.css'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import ProfilService from '../Services/ProfilService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
