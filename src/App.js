@@ -14,12 +14,13 @@ import Followers from './Followers/Followers'
 import Followings from './Followings/Followings'
 import Accueill from './Accueill/Accueill'
 import Profile from './Profile/Profile'
-import SessionTest from './SessionTest/SessionTest'
 import AddProfil from './EditProfile/AddProfil'
 import ProfilFriend from './Search/ProfilFriend'
 import ResetPassword from './Login2/ResetPassword'
 import EditPassword from './Login2/EditPassword'
 import Commentaires from './Poste/Commentaires'
+import UpdatePost from './AddPost/UpdatePost'
+import ProtectedRoute from './Authentification/ProtectedRoute'
 
 
 export default function App() {
@@ -32,21 +33,21 @@ export default function App() {
       <Route path='/EditPassword' element={<EditPassword />}></Route>
       <Route path='/ResetPassword' element={<ResetPassword />}></Route>
       <Route path='/Register' element={<Register />}></Route>
-      <Route path='/Search' element={<Search />} />
-      <Route path='/SessionTest' element={<SessionTest />} />
+      <Route path='/Search' element={<ProtectedRoute><Search /></ProtectedRoute>} />
         <Route path='/' element={<Principal />}>
-          <Route index element={<Postes />} />
-          <Route path="Commentaires/:postId" element={<Commentaires />} />
-          <Route path='Profile' element={<Profile />} />
-          <Route path="ProfilFriend/:profilId" element={<ProfilFriend />} />
-          <Route path='AddProfil' element={<AddProfil />} />
-          <Route path='EditProfile' element={<EditProfile />} />
-          <Route path='Securite' element={<Securite />} />
-          <Route path='Settings' element={<SettingsC />} />
-          <Route path='AddPost' element={<AddPost />} />
-          <Route path='Notifications' element={<Notifications />} />
-          <Route path='Followers' element={<Followers />} />
-          <Route path='Followings' element={<Followings />} />
+          <Route index element={<ProtectedRoute><Postes /></ProtectedRoute>} />
+          <Route path="Commentaires/:postId" element={<ProtectedRoute><Commentaires /></ProtectedRoute>} />
+          <Route path='Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="ProfilFriend/:profilId" element={<ProtectedRoute><ProfilFriend /></ProtectedRoute>} />
+          <Route path='AddProfil' element={<ProtectedRoute><AddProfil /></ProtectedRoute>} />
+          <Route path='EditProfile' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+          <Route path='Securite' element={<ProtectedRoute><Securite /></ProtectedRoute>} />
+          <Route path='Settings' element={<ProtectedRoute><SettingsC /></ProtectedRoute>} />
+          <Route path='AddPost' element={<ProtectedRoute><AddPost /></ProtectedRoute>} />
+          <Route path='UpdatePost/:postId' element={<ProtectedRoute><UpdatePost /></ProtectedRoute>} />
+          <Route path='Notifications' element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+          <Route path='Followers' element={<ProtectedRoute><Followers /></ProtectedRoute>} />
+          <Route path='Followings' element={<ProtectedRoute><Followings /></ProtectedRoute>} />
         </Route>
       </Routes>
     </BrowserRouter>

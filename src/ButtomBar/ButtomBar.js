@@ -16,14 +16,12 @@ export default function ButtomBar() {
           <Link to='/AddPost'>
             <img src="\imgs\images\img\add.PNG" className="icon" alt="" />
           </Link>
-          {/* <img src="\imgs\images\img\explore.PNG" className="icon" alt="" /> */}
-          <Link to='/Notifications'>
+          <Link to='/Settings'>
             <img src="\imgs\images\img\like.PNG" className="icon" alt="" />
           </Link>
           <Link to='/Profile'>
             <div className="icon user-profile"></div>
           </Link>
-
         </div>
       </div>
     </nav>

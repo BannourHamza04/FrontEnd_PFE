@@ -52,7 +52,7 @@ export default function Followers() {
                         <div className="info-Notif">
                             <div className="user-Notif">
                                 <span className="gg--chevron-left" id="backButton"></span>
-                                <h1>Followings</h1>
+                                <h1>Followers</h1>
                             </div>
                         </div>
                         {displayFollowers()}

@@ -124,6 +124,11 @@
         margin-top: -17%;
     }
 
+    .post-Notif {
+        margin-top: 50px;
+        min-height: 600px;
+    }
+
 }
 
 /* End Notifications */

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import PostService from '../Services/PostService';
-import Poste from './Poste'
+import Poste from '../Poste/Poste';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
-export default function Postes() {
-
+export default function PostsUsers() {
     const author = JSON.parse(localStorage.getItem('user_data'))
     const [postes, setPostes] = useState([]);
     const navigate = useNavigate();
+    const { profilId } = useParams();
 
     // Récupération des Postes
     const getPostes = async () => {
         try {
-            const authorId = author.id
-            const response = await PostService.getPostes(authorId);
+            const authorId = profilId
+            const response = await PostService.getPostesByUser(authorId);
             if (response.status === 200) {
                 setPostes(response.data.postList);
             } else {
@@ -40,6 +41,6 @@ export default function Postes() {
     }, [postes]);
 
     return (
-        <>{displayPostes()}</>
+        <div>{displayPostes()}</div>
     )
 }

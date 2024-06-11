@@ -200,26 +200,12 @@ body {
 	}
 }
 
-/* label {
-    width: 30px;
-    height: 30px;
-    position: relative;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 17px;
-} */
-
-
-
 /* Styles pour les appareils de petite taille (Mobile) */
 @media only screen and (max-width: 767px) {
-
     .container-EdP{
 		max-width: 100%;
 		width: 100%;
 	}
-
-
 }
 
 /* Styles pour les tablettes */
@@ -232,15 +218,12 @@ body {
 		width: 50%;
 	}
 
-
 }
 
 /* Styles pour les écrans larges (Desktop) */
 @media only screen and (min-width: 1024px) {
 	.container-EdP{
-		max-width: 100%;
-		width: 90%;
-		margin-left: -5%;
+		width: 100%;
 	}
 }
 

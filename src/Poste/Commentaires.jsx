@@ -78,9 +78,6 @@ export default function Commentaires() {
     }
 
     useEffect(() => {
-        if (!token) {
-            navigate('/Login')
-        }
         fetchComments()
     }, []);
 
@@ -100,7 +97,7 @@ export default function Commentaires() {
                 </div>
                 <div className="new-comment">
                     <form onSubmit={handleSubmit} className="new-comment" >
-                        <img src="../imgs/images/pdp.jpg" alt="" />
+                        <img src="/imgs/images/img/smile.PNG" alt="" />
                         <input type="text" placeholder="Add a comment..." ref={commentField} />
                         <input type="submit" style={{ color: 'white', background: 'blue', width: 30 + '%', cursor: 'pointer' }} />
                     </form>

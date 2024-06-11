@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './ProfilFriend.css'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ProfilService from '../Services/ProfilService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PostsUsers from './PostsUsers';
 
 export default function ProfilFriend() {
 
@@ -95,9 +96,6 @@ export default function ProfilFriend() {
     }, [abonne]);
 
     useEffect(() => {
-        if (!token) {
-            navigate('/Login')
-        }
         fetchProfile()
     }, []);
 
@@ -106,29 +104,35 @@ export default function ProfilFriend() {
             <div>
                 <ToastContainer position='top-center' />
             </div>
-            <div>
-                <div className="container-Profi">
-                    <div className="user-Prof">
-                        <span className="gg--chevron-left" id="backButton"></span>
-                        <h2> {profile.nameInProfile}</h2>
+            <div className="container-Profi">
+                <div className="profile-header">
+                    <div className="profile-header-top">
+                        <i className="gg--chevron-left" id="backButton"></i>
+                        <h1 className="profile-header-title">Profil</h1>
                     </div>
-                    <div className="profile">
-                        <div className="profile-image">
-                            {profile.pdp && (
-                                <img src={`http://localhost:4000/${profile.pdp}`} alt="profile" style={{ width: '140px' }} />
-                            )}
-                        </div>
-                        <div className="profile-user-settings">
-                            <h1 className="profile-user-name">{profile.nameInProfile}</h1>
-                            <button className="primary profile-edit-btn" style={{ backgroundColor: abonne ? 'red' : 'blue' }} onClick={toggleAbonnement}>
+                    <div className="profile-image">
+                        {profile.pdp && (
+                            <img src={`http://localhost:4000/${profile.pdp}`} alt="profile" style={{ width: '140px' }} />
+                        )}
+                    </div>
+                    <div className="profile-user-info">
+                        <div className="profile-user-header">
+                            <h2 className="profile-user-name">{profile.nameInProfile}</h2>
+                            <button className="button button3" style={{ backgroundColor: abonne ? 'red' : 'blue' }} onClick={toggleAbonnement}>
                                 {abonne ? 'Unfollow' : 'Follow'}</button>
                         </div>
                         <div className="profile-bio">
-                            <p><span className="profile-real-name">Jane Doe</span> {profile.bio}📷✈️🏕️</p>
+                            <p><span className="profile-real-name">Hamza Bannour</span> {profile.bio} 📷✈️🏕️</p>
+                        </div>
+                        <div className="profile-stats">
+                            <Link  style={{ textDecoration: 'none' }}><span><strong>{profile.nombrePostes}</strong> posts</span></Link>
+                            <Link  style={{ textDecoration: 'none' }}><span><strong>{profile.nombreFollowers}</strong> followers</span></Link>
+                            <Link style={{ textDecoration: 'none' }}><span><strong>{profile.nombreFollowings}</strong> followings</span></Link>
                         </div>
                     </div>
                 </div>
             </div>
+            <PostsUsers />
         </>
     )
 }
